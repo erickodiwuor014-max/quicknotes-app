@@ -9,6 +9,16 @@ const clearAllButton = document.querySelector("#clear-all-btn");
 
 let notes = [];
 
+function updateCount() {
+    if (notes.length === 0) {
+        noteCount.textContent = "You have no notes yet.";
+    } else if (notes.length === 1) {
+        noteCount.textContent = "You have 1 note.";
+    } else {
+        noteCount.textContent = "You have " + notes.length + " notes.";
+    }
+}
+
 function createNoteCard(note) {
     const listItem = document.createElement("li");
     listItem.classList.add("note-card");
@@ -52,15 +62,26 @@ function render() {
         const noteCard = createNoteCard(note);
         notesList.appendChild(noteCard);
     });
+
+    updateCount();
 }
 
 noteForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const text = noteInput.value.trim();
+    const rawText = noteInput.value;
+    const text = rawText.trim();
     const category = noteCategory.value;
 
+    errorMessage.textContent = "";
+
     if (text === "") {
+        errorMessage.textContent = "Please type a note first.";
+        return;
+    }
+
+    if (rawText.length > 200) {
+        errorMessage.textContent = "Notes must be 200 characters or fewer.";
         return;
     }
 
@@ -74,6 +95,8 @@ noteForm.addEventListener("submit", function (event) {
     notes.push(newNote);
 
     noteInput.value = "";
+    errorMessage.textContent = "";
+
     render();
 });
 
