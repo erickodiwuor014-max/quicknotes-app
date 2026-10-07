@@ -1,0 +1,181 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f5f7;
+    color: #222;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #176b87;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+header h1 {
+    margin: 0 0 8px;
+}
+
+header p {
+    margin: 0;
+}
+
+main {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+section {
+    background-color: white;
+    padding: 24px;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+section h2 {
+    margin-top: 0;
+}
+
+form {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+form div {
+    flex: 1;
+    min-width: 200px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input,
+select,
+button {
+    width: 100%;
+    padding: 10px;
+    font: inherit;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+}
+
+button {
+    width: auto;
+    background-color: #176b87;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #0f4f65;
+    transform: translateY(-1px);
+}
+
+#error-message {
+    min-height: 24px;
+    margin-bottom: 0;
+    color: #c62828;
+    font-weight: bold;
+}
+
+#search-input {
+    margin-bottom: 12px;
+}
+
+#notes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.note-card {
+    padding: 16px;
+    border: 1px solid #d5d5d5;
+    border-left: 5px solid #176b87;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background-color: #fafafa;
+}
+
+.note-card p {
+    margin-top: 0;
+}
+
+.note-category {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.note-date {
+    display: block;
+    margin-top: 8px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.category-personal {
+    border-left-color: #00897b;
+}
+
+.category-work {
+    border-left-color: #8b0000;
+}
+
+.category-study {
+    border-left-color: #1565c0;
+}
+
+#clear-all-btn {
+    background-color: #8b0000;
+    margin-bottom: 12px;
+}
+
+#clear-all-btn:hover {
+    background-color: #650000;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+@media (max-width: 600px) {
+    main {
+        margin: 20px auto;
+        padding: 0 12px;
+    }
+
+    section {
+        padding: 18px;
+    }
+
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    form div {
+        width: 100%;
+    }
+
+    form button {
+        width: 100%;
+    }
+}
