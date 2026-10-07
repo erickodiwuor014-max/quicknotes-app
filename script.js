@@ -7,7 +7,29 @@ const errorMessage = document.querySelector("#error-message");
 const searchInput = document.querySelector("#search-input");
 const clearAllButton = document.querySelector("#clear-all-btn");
 
+const STORAGE_KEY = "quicknotes-notes";
+
 let notes = [];
+
+function saveNotes() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
+}
+
+function loadNotes() {
+    const savedNotes = localStorage.getItem(STORAGE_KEY);
+
+    if (savedNotes) {
+        try {
+            const savedData = JSON.parse(savedNotes);
+
+            if (Array.isArray(savedData)) {
+                notes = savedData;
+            }
+        } catch (error) {
+            notes = [];
+        }
+    }
+}
 
 function updateCount() {
     if (notes.length === 0) {
@@ -44,6 +66,7 @@ function createNoteCard(note) {
             return item.id !== note.id;
         });
 
+        saveNotes();
         render();
     });
 
@@ -58,10 +81,22 @@ function createNoteCard(note) {
 function render() {
     notesList.replaceChildren();
 
-    notes.forEach(function (note) {
-        const noteCard = createNoteCard(note);
-        notesList.appendChild(noteCard);
+    const searchTerm = searchInput.value.trim().toLowerCase();
+
+    const filteredNotes = notes.filter(function (note) {
+        return note.text.toLowerCase().includes(searchTerm);
     });
+
+    if (filteredNotes.length === 0 && searchTerm !== "") {
+        const emptyMessage = document.createElement("li");
+        emptyMessage.textContent = "No notes match your search.";
+        notesList.appendChild(emptyMessage);
+    } else {
+        filteredNotes.forEach(function (note) {
+            const noteCard = createNoteCard(note);
+            notesList.appendChild(noteCard);
+        });
+    }
 
     updateCount();
 }
@@ -94,6 +129,8 @@ noteForm.addEventListener("submit", function (event) {
 
     notes.push(newNote);
 
+    saveNotes();
+
     noteInput.value = "";
     errorMessage.textContent = "";
 
@@ -111,8 +148,10 @@ clearAllButton.addEventListener("click", function () {
 
     if (confirm("Delete all notes?")) {
         notes = [];
+        saveNotes();
         render();
     }
 });
 
+loadNotes();
 render();
